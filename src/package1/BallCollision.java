@@ -4,39 +4,42 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class BallCollision {
+    private Control control;
     Timer kollision;
-    public BallCollision(){
+
+    public BallCollision(Control control) {
         kollision = new Timer();
+        this.control = control;
         kollision.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (Var.ballY + 50>= Var.windowHeight){
-                    Var.ballDirecY = -1;
+                if (control.getBallPosY() + 50 >= Var.windowHeight) {
+                    control.setBallDirecY(-1);
                 }
-                if (Var.ballY <= 0){
-                    Var.ballDirecY = 1;
+                if (control.getBallPosY() <= 0) {
+                    control.setBallDirecY(1);
                 }
-                if (Var.ballX+20>= Var.windowWidth){
-                    Var.ballX = 290;
-                    Var.ballY = 190;
+                if (control.getBallPosX() + 20 >= Var.windowWidth) {
+                    control.setBallPosX(290);
+                    control.setBallPosY(190);
 
-                    Var.ballDirecX = -1;
+                    control.setBallDirecX(-1);
                     Var.playerpoints1 += 1;
                 }
-                if (Var.ballX <= 0) {
-                    Var.ballX = 290;
-                    Var.ballY = 190;
+                if (control.getBallPosX() <= 0) {
+                    control.setBallPosX(290);
+                    control.setBallPosY(190);
 
-                    Var.ballDirecX = -1;
+                    control.setBallDirecX(-1);
                     Var.playerpoints2 += 1;
                 }
-                if (Var.ballX < Var.x + 15 && Var.ballX > Var.x && Var.ballY < Var.y + 50 && Var.ballY > Var.y){
-                    Var.ballDirecX = 1;
+                if (control.getBallPosX() < Var.x + 15 && control.getBallPosX() > Var.x && control.getBallPosY() < Var.y + 50 && control.getBallPosY() > Var.y) {
+                    control.setBallDirecX(1);
                 }
-                if (Var.ballX > Var.x2 - 15 && Var.ballX < Var.x2  && Var.ballY < Var.y2 + 50 && Var.ballY > Var.y2){
-                    Var.ballDirecX = -1;
+                if (control.getBallPosX() > Var.x2 - 15 && control.getBallPosX() < Var.x2 && control.getBallPosY() < Var.y2 + 50 && control.getBallPosY() > Var.y2) {
+                    control.setBallDirecX(-1);
                 }
             }
-        },0,4);
+        }, 0, 4);
     }
 }

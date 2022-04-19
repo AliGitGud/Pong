@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Draw extends JLabel {
+    private Control control;
+    public Draw(Control control){
+        this.control = control;
+    }
     protected void paintComponent(Graphics g){
 
         super.paintComponent(g);
@@ -27,7 +31,7 @@ public class Draw extends JLabel {
         g.drawString("" + Var.playerpoints1, Var.windowWidth/2 - 50, 50);
         g.drawString("" + Var.playerpoints2, Var.windowWidth/2 + 50, 50);
 
-        g.fillRect(Var.ballX, Var.ballY, 15, 15);
+        g.fillRect(control.getBallPosX(), control.getBallPosY(), 15, 15);
         repaint();
     }
 }

@@ -5,9 +5,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GUI {
+    private Draw lblDraw;
 
-    public GUI(){
-
+    public GUI(Draw draw) {
+        lblDraw = draw;
         Var.mainWind = new JFrame();
         Var.mainWind.setSize(Var.windowWidth, Var.windowHeight);
         Var.mainWind.setTitle("Pong");
@@ -18,9 +19,9 @@ public class GUI {
         Var.mainWind.setLocationRelativeTo(null);
         Var.mainWind.addKeyListener(new KeyHandler());
         Var.mainWind.requestFocus();
-        Draw lblDraw = new Draw();
         lblDraw.setBounds(0, 0, Var.windowWidth, Var.windowHeight);
         lblDraw.setVisible(true);
         Var.mainWind.add(lblDraw);
     }
-}
+
+   }
