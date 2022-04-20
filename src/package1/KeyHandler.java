@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.security.Key;
 
 public class KeyHandler implements KeyListener {
+    private Control control;
 
     @Override
     public void keyTyped(KeyEvent e) {

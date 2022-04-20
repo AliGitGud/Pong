@@ -33,10 +33,10 @@ public class BallCollision {
                     control.setBallDirecX(-1);
                     Var.playerpoints2 += 1;
                 }
-                if (control.getBallPosX() < Var.x + 15 && control.getBallPosX() > Var.x && control.getBallPosY() < Var.y + 50 && control.getBallPosY() > Var.y) {
+                if (control.getBallPosX() < control.getSpielerPosX() + 15 && control.getBallPosX() > control.getSpielerPosX() && control.getBallPosY() < control.getSpielerPosY() + 50 && control.getBallPosY() > control.getSpielerPosY()) {
                     control.setBallDirecX(1);
                 }
-                if (control.getBallPosX() > Var.x2 - 15 && control.getBallPosX() < Var.x2 && control.getBallPosY() < Var.y2 + 50 && control.getBallPosY() > Var.y2) {
+                if (control.getBallPosX() > control.getGegnerPosX() - 15 && control.getBallPosX() < control.getGegnerPosX() && control.getBallPosY() < control.getGegnerPosY() + 50 && control.getBallPosY() > control.getGegnerPosY()) {
                     control.setBallDirecX(-1);
                 }
             }

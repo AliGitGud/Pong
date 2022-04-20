@@ -5,11 +5,15 @@ public class Control {
     private BallCollision ballCollision;
     private Draw draw;
     private GUI gui;
+    private GegnerMovement gegnerMovement;
+    private Movement movement;
     public Control() {
         ballMovement = new BallMovement();
         ballCollision = new BallCollision(this);
         draw = new Draw(this);
         gui = new GUI(draw);
+        gegnerMovement = new GegnerMovement();
+        movement = new Movement();
     }
 
     public void setBallDirecX(int direcX) {
@@ -51,6 +55,26 @@ public class Control {
 
     public Draw getDraw() {
         return draw;
+    }
+
+    public int getGegnerPosX(){
+        return gegnerMovement.getGegnerX();
+    }
+    public int getGegnerPosY(){
+        return gegnerMovement.getGegnerY();
+    }
+
+    public int getSpielerPosX(){
+        return movement.getSpielerX();
+    }
+    public int getSpielerPosY(){
+        return movement.getSpielerY();
+    }
+    public boolean isSpielerMoveUp(){
+        return movement.isMoveUpSpieler();
+    }
+    public boolean isSpielerMoveDown(){
+        return movement.isMoveDownSpieler();
     }
 }
 
