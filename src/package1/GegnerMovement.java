@@ -4,20 +4,23 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GegnerMovement {
+    private Control control;
     private int gegnerX = 570, gegnerY = 175;
+    private boolean moveUpGegner = false, moveDownGegner = false;
     Timer move;
 
-    public GegnerMovement() {
+    public GegnerMovement(Control control) {
+        this.control = control;
         move = new Timer();
         move.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (Var.moveup2 == true) {
+                if (moveUpGegner == true) {
                     if (gegnerY >= 5) {
                         gegnerY -= 2;
                     }
-                } else if (Var.movedown2 == true) {
-                    if (gegnerY <= Var.windowHeight - 90) {
+                } else if (moveDownGegner == true) {
+                    if (gegnerY <= control.getWindowHeight() - 90) {
                         gegnerY += 2;
                     }
                 }
@@ -31,5 +34,18 @@ public class GegnerMovement {
 
     public int getGegnerY() {
         return gegnerY;
+    }
+
+    public boolean isMoveUpGegner() {
+        return moveUpGegner;
+    }
+    public boolean isMoveDownGegner() {
+        return moveDownGegner;
+    }
+    public void setMoveUpGegner(boolean moveUpGegner) {
+        this.moveUpGegner = moveUpGegner;
+    }
+    public void setMoveDownGegner(boolean moveDownGegner) {
+        this.moveDownGegner = moveDownGegner;
     }
 }

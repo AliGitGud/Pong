@@ -6,22 +6,31 @@ import java.awt.event.KeyListener;
 
 public class GUI {
     private Draw lblDraw;
+    private JFrame mainWindow;
+    private int windowWidth = 600, windowHeight = 400;
 
-    public GUI(Draw draw) {
+    public GUI(Draw draw, KeyHandler keyHandler) {
         lblDraw = draw;
-        Var.mainWind = new JFrame();
-        Var.mainWind.setSize(Var.windowWidth, Var.windowHeight);
-        Var.mainWind.setTitle("Pong");
-        Var.mainWind.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        Var.mainWind.setLayout(null);
-        Var.mainWind.setResizable(false);
-        Var.mainWind.setVisible(true);
-        Var.mainWind.setLocationRelativeTo(null);
-        Var.mainWind.addKeyListener(new KeyHandler());
-        Var.mainWind.requestFocus();
-        lblDraw.setBounds(0, 0, Var.windowWidth, Var.windowHeight);
+        mainWindow = new JFrame();
+        mainWindow.setSize(windowWidth, windowHeight);
+        mainWindow.setTitle("Pong");
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setLayout(null);
+        mainWindow.setResizable(false);
+        mainWindow.setVisible(true);
+        mainWindow.setLocationRelativeTo(null);
+        mainWindow.addKeyListener(keyHandler);
+        mainWindow.requestFocus();
+        lblDraw.setBounds(0, 0, windowWidth, windowHeight);
         lblDraw.setVisible(true);
-        Var.mainWind.add(lblDraw);
+        mainWindow.add(lblDraw);
     }
 
-   }
+    public int getWindowWidth() {
+        return windowWidth;
+    }
+
+    public int getWindowHeight() {
+        return windowHeight;
+    }
+}

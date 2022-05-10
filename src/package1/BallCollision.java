@@ -13,25 +13,25 @@ public class BallCollision {
         kollision.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (control.getBallPosY() + 50 >= Var.windowHeight) {
+                if (control.getBallPosY() + 50 >= control.getWindowHeight()) {
                     control.setBallDirecY(-1);
                 }
                 if (control.getBallPosY() <= 0) {
                     control.setBallDirecY(1);
                 }
-                if (control.getBallPosX() + 20 >= Var.windowWidth) {
+                if (control.getBallPosX() + 20 >= control.getWindowWidth()) {
                     control.setBallPosX(290);
                     control.setBallPosY(190);
 
                     control.setBallDirecX(-1);
-                    Var.playerpoints1 += 1;
+                    control.setSpielerPunkte(control.getSpielerPunkte()+1);
                 }
                 if (control.getBallPosX() <= 0) {
                     control.setBallPosX(290);
                     control.setBallPosY(190);
 
-                    control.setBallDirecX(-1);
-                    Var.playerpoints2 += 1;
+                    control.setBallDirecX(+1);
+                    control.setGegnerPunkte(control.getGegnerPunkte()+1);
                 }
                 if (control.getBallPosX() < control.getSpielerPosX() + 15 && control.getBallPosX() > control.getSpielerPosX() && control.getBallPosY() < control.getSpielerPosY() + 50 && control.getBallPosY() > control.getSpielerPosY()) {
                     control.setBallDirecX(1);

@@ -6,7 +6,9 @@ import java.security.Key;
 
 public class KeyHandler implements KeyListener {
     private Control control;
-
+public KeyHandler(Control control){
+    this.control = control;
+}
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -15,26 +17,26 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_W) {
-            Var.moveup = true;
+            control.setMoveUpSpieler(true);
         }else if (e.getKeyCode() == KeyEvent.VK_S){
-            Var.movedown = true;
+            control.setMoveDownSpieler(true);
         }else if(e.getKeyCode() == KeyEvent.VK_UP){
-            Var.moveup2 = true;
+            control.setMoveUpGegner(true);
         }else if (e.getKeyCode() == KeyEvent.VK_DOWN){
-            Var.movedown2 = true;
+            control.setMoveDownGegner(true);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_W) {
-            Var.moveup = false;
+            control.setMoveUpSpieler(false);
         }else if (e.getKeyCode() == KeyEvent.VK_S){
-            Var.movedown = false;
+            control.setMoveDownSpieler(false);
         }else if(e.getKeyCode() == KeyEvent.VK_UP){
-            Var.moveup2 = false;
+            control.setMoveUpGegner(false);
         }else if (e.getKeyCode() == KeyEvent.VK_DOWN){
-            Var.movedown2 = false;
+            control.setMoveDownGegner(false);
         }
     }
 }

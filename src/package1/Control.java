@@ -7,13 +7,16 @@ public class Control {
     private GUI gui;
     private GegnerMovement gegnerMovement;
     private Movement movement;
+
+    private KeyHandler keyHandler;
     public Control() {
+        keyHandler = new KeyHandler(this);
         ballMovement = new BallMovement();
-        ballCollision = new BallCollision(this);
         draw = new Draw(this);
-        gui = new GUI(draw);
-        gegnerMovement = new GegnerMovement();
-        movement = new Movement();
+        gui = new GUI(draw, keyHandler);
+        movement = new Movement(this);
+        gegnerMovement = new GegnerMovement(this);
+        ballCollision = new BallCollision(this);
     }
 
     public void setBallDirecX(int direcX) {
@@ -75,6 +78,45 @@ public class Control {
     }
     public boolean isSpielerMoveDown(){
         return movement.isMoveDownSpieler();
+    }
+    public void setMoveUpSpieler( boolean moveUpSpieler){
+        movement.setMoveUpSpieler(moveUpSpieler);
+    }
+    public void setMoveDownSpieler( boolean moveDownSpieler){
+        movement.setMoveDownSpieler(moveDownSpieler);
+    }
+    public boolean isGegnerMoveUp(){
+        return gegnerMovement.isMoveUpGegner();
+    }
+    public boolean isGegnerMoveDown(){
+        return gegnerMovement.isMoveDownGegner();
+    }
+    public void setMoveUpGegner( boolean moveUpGegner){
+        gegnerMovement.setMoveUpGegner(moveUpGegner);
+    }
+    public void setMoveDownGegner( boolean moveDownGegner){
+        gegnerMovement.setMoveDownGegner(moveDownGegner);
+    }
+    public KeyHandler getKeyHandler(){
+        return keyHandler;
+    }
+    public int getSpielerPunkte(){
+        return draw.getSpielerPunkte();
+    }
+    public int getGegnerPunkte(){
+        return draw.getGegnerPunkte();
+    }
+    public void setSpielerPunkte(int spielerPunkte){
+        draw.setSpielerPunkte(spielerPunkte);
+    }
+    public void setGegnerPunkte(int gegnerPunkte){
+        draw.setGegnerPunkte(gegnerPunkte);
+    }
+    public int getWindowWidth(){
+        return gui.getWindowWidth();
+    }
+    public int getWindowHeight(){
+        return gui.getWindowHeight();
     }
 }
 
