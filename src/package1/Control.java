@@ -7,8 +7,8 @@ public class Control {
     private GUI gui;
     private GegnerMovement gegnerMovement;
     private Movement movement;
-
     private KeyHandler keyHandler;
+    private StartWindow startWindow;
     public Control() {
         keyHandler = new KeyHandler(this);
         ballMovement = new BallMovement();
@@ -17,6 +17,7 @@ public class Control {
         movement = new Movement(this);
         gegnerMovement = new GegnerMovement(this);
         ballCollision = new BallCollision(this);
+        startWindow = new StartWindow(this);
     }
 
     public void setBallDirecX(int direcX) {
@@ -117,6 +118,23 @@ public class Control {
     }
     public int getWindowHeight(){
         return gui.getWindowHeight();
+    }
+
+    public void goToJoinScreen(){
+        startWindow.getStartpnl().setVisible(false);
+        startWindow.getJoinpnl().setVisible(true);
+        startWindow.getZurueckbtn().setVisible(true);
+    }
+    public void goBackToStartScreen(){
+        startWindow.getStartpnl().setVisible(true);
+        startWindow.getJoinpnl().setVisible(false);
+        startWindow.getInfopnl().setVisible(false);
+        startWindow.getZurueckbtn().setVisible(false);
+    }
+    public void goToInfoScreen(){
+        startWindow.getStartpnl().setVisible(false);
+        startWindow.getInfopnl().setVisible(true);
+        startWindow.getZurueckbtn().setVisible(true);
     }
 }
 

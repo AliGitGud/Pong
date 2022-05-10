@@ -1,36 +1,165 @@
 package package1;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class StartWindow {
+    private Control control;
     private JFrame startWindow;
-    private JButton hostgamebtn, joingamebtn, spielregelnbtn;
+    private JButton hostgamebtn;
+    private JButton joingamebtn;
+    private JButton infobtn;
+    private JButton ueberpruefenbtn;
+    public JButton getZurueckbtn() {
+        return zurueckbtn;
+    }
+    private JButton zurueckbtn;
+    public JPanel getStartpnl() {
+        return startpnl;
+    }
     private JPanel startpnl;
-    private JLabel titlelb;
+    public JPanel getJoinpnl() {
+        return joinpnl;
+    }
+    private JPanel joinpnl;
+    public JPanel getInfopnl() {
+        return infopnl;
+    }
+    private JPanel infopnl;
+    private JLabel titlelb, joinlb;
+    private JTextField joinTextField;
+    private JTextArea infoTextArea;
+    private Container con;
     Font titleFont = new Font("Algerian", Font.PLAIN, 60);
     Font buttonFont = new Font("Algerian", Font.PLAIN, 20);
-    public StartWindow() {
+    Font infoFont = new Font("", Font.PLAIN, 20);
+    public StartWindow(Control control) {
+        this.control = control;
+        int hoehe = 400, breite = 600;
+
         startWindow = new JFrame();
-        startWindow.setSize(600, 400);
+        startWindow.setSize(breite, hoehe);
         startWindow.setVisible(true);
         startWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         startWindow.setLocationRelativeTo(null);
         startWindow.setTitle("Pong");
+        startWindow.setLayout(null);
+        startWindow.setResizable(false);
+        con = startWindow.getContentPane();
 
         startpnl = new JPanel();
-        startpnl.setBounds(0, 0, 600,400);
+        startpnl.setBounds(0, 0, breite, hoehe);
+        startpnl.setLayout(null);
         startpnl.setBackground(Color.white);
-        startWindow.add(startpnl);
+        con.add(startpnl);
 
         titlelb = new JLabel("Pong");
-        startpnl.add(titlelb);
+        startpnl.setForeground(Color.white);
         titlelb.setFont(titleFont);
+        startpnl.add(titlelb);
+        titlelb.setBounds(breite/2-100, 50,200, 50);
+        titlelb.setHorizontalAlignment(SwingConstants.CENTER);
+        titlelb.setVerticalAlignment(SwingConstants.CENTER);
 
-        hostgamebtn = new JButton("Hostgame");
-        hostgamebtn.setBackground(Color.black);
-        hostgamebtn.setForeground(Color.white);
+        infopnl = new JPanel();
+        infopnl.setBounds(0, 0, breite, hoehe);
+        infopnl.setLayout(null);
+        infopnl.setBackground(Color.white);
+        con.add(infopnl);
+        infopnl.setVisible(false);
+
+        infoTextArea = new JTextArea();
+        infoTextArea.setBounds(50, 10, 400, 325);
+        infoTextArea.setLineWrap(true);
+        infoTextArea.setWrapStyleWord(true);
+        infoTextArea.setFont(infoFont);
+        infoTextArea.setText("Das 1972 von Atari veröffentlichte Pong wurde " +
+                "zum ersten weltweit beliebten Videospiel und in den 1970er-Jahren zunächst auf Geräten in Spielhallen" +
+                " bekannt. Es gilt als Urvater der Videospiele, obgleich schon zuvor Videospiele entwickelt worden waren." +
+                "Die Spielregeln sind einfach, ein Ball bewegt sich über das Spielfeld und muss, mithilfe der Balken rechts" +
+                "und links, von den Spielern abgewehrt werden. Verfehlt man den Ball, kriegt der Gegner einen Punkt.");
+        infoTextArea.setEditable(false);
+        infopnl.add(infoTextArea);
+
+        joinpnl = new JPanel();
+        joinpnl.setBounds(0, 0, breite, hoehe);
+        joinpnl.setLayout(null);
+        joinpnl.setBackground(Color.white);
+        con.add(joinpnl);
+        joinpnl.setVisible(false);
+
+        joinTextField = new JTextField();
+        joinTextField.setText("IP-Adresse des Hosts...");
+        joinTextField.setBounds(breite/2-450/2, 100, 300, 30);
+        joinpnl.add(joinTextField);
+
+        ueberpruefenbtn = new JButton("Suchen");
+        ueberpruefenbtn.setBackground(Color.white);
+        ueberpruefenbtn.setBounds(375, 100, 120, 30);
+        ueberpruefenbtn.setFont(buttonFont);
+        ueberpruefenbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        joinpnl.add(ueberpruefenbtn);
+
+        zurueckbtn = new JButton("Zurück");
+        zurueckbtn.setBounds(450, 300, 125, 50);
+        zurueckbtn.setBackground(Color.white);
+        zurueckbtn.setFont(buttonFont);
+        zurueckbtn.setVisible(false);
+        zurueckbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.goBackToStartScreen();
+            }
+        });
+        con.add(zurueckbtn);
+
+        hostgamebtn = new JButton("Host Game");
+        hostgamebtn.setBackground(Color.WHITE);
+        hostgamebtn.setSize(300, 75);
+        hostgamebtn.setLocation(breite/2-hostgamebtn.getWidth()/2, 100);
         hostgamebtn.setFont(buttonFont);
+        hostgamebtn.setVisible(true);
+        hostgamebtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO Host kommt in das Spiel und wartet auf Gegner
+            }
+        });
         startpnl.add(hostgamebtn);
+
+        joingamebtn = new JButton("Join Game");
+        joingamebtn.setBackground(Color.WHITE);
+        joingamebtn.setSize(300, 75);
+        joingamebtn.setLocation(breite/2-joingamebtn.getWidth()/2, 200);
+        joingamebtn.setFont(buttonFont);
+        joingamebtn.setVisible(true);
+        joingamebtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.goToJoinScreen();
+            }
+        });
+        startpnl.add(joingamebtn);
+
+        infobtn = new JButton("Info");
+        infobtn.setBackground(Color.WHITE);
+        infobtn.setBounds(10, 300, 100, 50);
+        infobtn.setFont(buttonFont);
+        infobtn.setVisible(true);
+        infobtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                control.goToInfoScreen();
+            }
+        });
+        startpnl.add(infobtn);
     }
 }
