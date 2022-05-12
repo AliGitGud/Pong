@@ -19,9 +19,11 @@ public class Client extends Thread {
 		this.control = control;
 		try {
 			this.connection = new Socket(ipAddress, 8080);
-		} catch (Exception e) {
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		this.out = new PrintWriter(this.connection.getOutputStream());
+		this.start();
 	}
 
 	@Override
@@ -31,7 +33,7 @@ public class Client extends Thread {
 		try {
 			in = new BufferedReader(new InputStreamReader(this.connection.getInputStream(), "UTF-8"));
 		} catch (IOException e) {
-			// Cancel execution
+			e.printStackTrace();
 			return;
 		}
 
@@ -44,14 +46,28 @@ public class Client extends Thread {
 						// Don't process emtpy lines
 						continue;
 					}
-					// TODO: Add commands
+
+					if (line.equalsIgnoreCase(TcpCommands.UP_STARTED)) {
+						this.control.setMoveUpGegner(true);
+					} else if (line.equalsIgnoreCase(TcpCommands.UP_ENDED)) {
+						this.control.setMoveUpGegner(false);
+					} else if (line.equalsIgnoreCase(TcpCommands.DOWN_STARTED)) {
+						this.control.setMoveDownGegner(true);
+					} else if (line.equalsIgnoreCase(TcpCommands.DOWN_ENDED)) {
+						this.control.setMoveDownGegner(false);
+					}
 				}
 			} catch (SocketException e) {
-				// TODO: Handle Disconnect
+				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO: Handle IOException
+				e.printStackTrace();
 			}
 		}
+	}
+
+	public void send(String text) {
+		this.out.println(text);
+		this.out.flush();
 	}
 
 }

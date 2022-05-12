@@ -2,26 +2,28 @@ package package1;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CopyOnWriteArrayList;
+
+import net.TcpCommands;
 
 public class Movement {
     private Control control;
     private int spielerX = 5, spielerY = 175;
     private boolean moveUpSpieler = false, moveDownSpieler = false;
     Timer move;
-    public Movement(Control control){
+
+    public Movement(Control control) {
         this.control = control;
         move = new Timer();
         move.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if (moveUpSpieler){
-                    if (spielerY >= 5){
+                if (moveUpSpieler) {
+                    if (spielerY >= 5) {
                         spielerY -= 2;
                     }
-                }else if (moveDownSpieler){
-                    if (spielerY <= control.getWindowHeight() - 90){
-                        spielerY  += 2;
+                } else if (moveDownSpieler) {
+                    if (spielerY <= control.getWindowHeight() - 90) {
+                        spielerY += 2;
                     }
                 }
             }
@@ -46,8 +48,19 @@ public class Movement {
 
     public void setMoveUpSpieler(boolean moveUpSpieler) {
         this.moveUpSpieler = moveUpSpieler;
+        if (moveUpSpieler) {
+            this.control.getClient().send(TcpCommands.UP_STARTED);
+        } else {
+            this.control.getClient().send(TcpCommands.UP_ENDED);
+        }
     }
+
     public void setMoveDownSpieler(boolean moveDownSpieler) {
         this.moveDownSpieler = moveDownSpieler;
+        if (moveDownSpieler) {
+            this.control.getClient().send(TcpCommands.DOWN_STARTED);
+        } else {
+            this.control.getClient().send(TcpCommands.DOWN_ENDED);
+        }
     }
 }

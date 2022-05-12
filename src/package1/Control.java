@@ -1,8 +1,6 @@
 package package1;
 
-import java.io.IOError;
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 
 import net.Client;
@@ -10,7 +8,6 @@ import net.Server;
 
 public class Control {
     private BallMovement ballMovement;
-    private BallCollision ballCollision;
     private Draw draw;
     private GUI gui;
     private GegnerMovement gegnerMovement;
@@ -28,8 +25,8 @@ public class Control {
         gui = new GUI(draw, keyHandler);
         movement = new Movement(this);
         gegnerMovement = new GegnerMovement(this);
-        ballCollision = new BallCollision(this);
         startWindow = new StartWindow(this);
+        new BallCollision(this);
     }
 
     public void setBallDirecX(int direcX) {
@@ -151,11 +148,20 @@ public class Control {
 
     public void connect(String ipAddress) throws IOException {
         this.client = new Client(this, ipAddress);
+        // Hier das Spiel starten
     }
 
     public void host() throws IOException {
         this.server = new Server(this);
         this.client = new Client(this, InetAddress.getLocalHost().getHostAddress());
+    }
+
+    public Client getClient() {
+        return this.client;
+    }
+
+    public Server getServer() {
+        return this.server;
     }
 
     public void goToHostScreen() {

@@ -3,43 +3,54 @@ package net;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import package1.Control;
 
 public class Server {
 
 	private ServerSocket server;
-	private ArrayList<ConnectionSocket> connections;
+	private HashMap<Integer, ConnectionSocket> connections;
 
 	public Server(Control control) {
-		this.connections = new ArrayList<ConnectionSocket>();
+		this.connections = new HashMap<Integer, ConnectionSocket>();
 		try {
 			this.server = new ServerSocket(8080);
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
-		System.out.println("Server running.");
+		System.out.println("Server running");
 
 		new Thread(new Runnable() {
 			public void run() {
 				Socket socket = null;
 				boolean connected = false;
+				int i = 0;
 				while (!connected) {
 					try {
 						socket = server.accept();
 					} catch (IOException e) {
 						continue;
 					}
-					System.out.println("Connection established");
-					ConnectionSocket tmp = new ConnectionSocket(control, socket);
-					connections.add(tmp);
-					tmp.start();
-					if (connections.size() >= 2) {
-						connected = true;
+					if (socket != null) {
+						System.out.println("Connection established");
+						ConnectionSocket tmp = new ConnectionSocket(control, socket, i);
+						connections.put(i, tmp);
+						i++;
+						tmp.start();
+						if (connections.size() >= 2) {
+							connected = true;
+							// TODO hier das Spiel starten
+						}
+						socket = null;
 					}
 				}
 			}
 		}).start();
+	}
+
+	public void sendTo(int recipient, String message) {
+		this.connections.get(recipient).send(message);
 	}
 }

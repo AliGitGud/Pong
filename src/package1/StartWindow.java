@@ -17,14 +17,13 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 public class StartWindow {
-    private Control control;
     private JFrame startWindow;
     private JButton hostgamebtn;
     private JButton joingamebtn;
     private JButton infobtn;
     private JButton ueberpruefenbtn;
     private JPanel infopnl;
-    private JLabel titlelb, joinlb;
+    private JLabel titlelb;
     private JTextField joinTextField;
     private JTextArea infoTextArea;
     private Container con;
@@ -61,7 +60,6 @@ public class StartWindow {
     Font infoFont = new Font("", Font.PLAIN, 20);
 
     public StartWindow(Control control) {
-        this.control = control;
         int hoehe = 400, breite = 600;
 
         startWindow = new JFrame();
@@ -139,7 +137,7 @@ public class StartWindow {
                 try {
                     control.connect(joinTextField.getText());
                 } catch (IOException ex) {
-                    // TODO: handle exception
+                    ex.printStackTrace();
                 }
             }
         });
@@ -170,11 +168,10 @@ public class StartWindow {
                 try {
                     control.host();
                 } catch (IOException ex) {
-                    // abort
-                    return;
+                    ex.printStackTrace();
                 }
                 control.goToHostScreen();
-                // TODO Host kommt in das Spiel und wartet auf Gegner
+                // TODO Hostscreen designen
             }
         });
         startpnl.add(hostgamebtn);

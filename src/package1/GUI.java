@@ -1,8 +1,7 @@
 package package1;
 
-import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 public class GUI {
     private Draw lblDraw;

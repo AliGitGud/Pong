@@ -14,13 +14,22 @@ public class ConnectionSocket extends Thread {
 	private Socket connection;
 	private PrintWriter out;
 	private Control control;
+	private int uid;
+	private int enemy;
 
-	public ConnectionSocket(Control control, Socket connection) {
+	public ConnectionSocket(Control control, Socket connection, int uid) {
 		this.control = control;
 		this.connection = connection;
+		this.uid = uid;
+		if (this.uid == 1) {
+			this.enemy = 0;
+		} else {
+			this.enemy = 1;
+		}
 		try {
 			this.out = new PrintWriter(this.connection.getOutputStream());
 		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -31,7 +40,7 @@ public class ConnectionSocket extends Thread {
 		try {
 			in = new BufferedReader(new InputStreamReader(this.connection.getInputStream(), "UTF-8"));
 		} catch (IOException e) {
-			// Cancel execution
+			e.printStackTrace();
 			return;
 		}
 
@@ -45,13 +54,26 @@ public class ConnectionSocket extends Thread {
 						continue;
 					}
 
-					// TODO: Add commands
+					if (line.equalsIgnoreCase(TcpCommands.UP_STARTED)) {
+						this.control.getServer().sendTo(enemy, TcpCommands.UP_STARTED);
+					} else if (line.equalsIgnoreCase(TcpCommands.UP_ENDED)) {
+						this.control.getServer().sendTo(enemy, TcpCommands.UP_ENDED);
+					} else if (line.equalsIgnoreCase(TcpCommands.DOWN_STARTED)) {
+						this.control.getServer().sendTo(enemy, TcpCommands.DOWN_STARTED);
+					} else if (line.equalsIgnoreCase(TcpCommands.DOWN_ENDED)) {
+						this.control.getServer().sendTo(enemy, TcpCommands.DOWN_ENDED);
+					}
 				}
 			} catch (SocketException e) {
-				// TODO: Handle Disconnect
+				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO: Handle IOException
+				e.printStackTrace();
 			}
 		}
+	}
+
+	public void send(String message) {
+		this.out.println(message);
+		this.out.flush();
 	}
 }

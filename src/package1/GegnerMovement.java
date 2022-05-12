@@ -4,13 +4,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GegnerMovement {
-    private Control control;
     private int gegnerX = 570, gegnerY = 175;
     private boolean moveUpGegner = false, moveDownGegner = false;
     Timer move;
 
     public GegnerMovement(Control control) {
-        this.control = control;
         move = new Timer();
         move.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -39,12 +37,15 @@ public class GegnerMovement {
     public boolean isMoveUpGegner() {
         return moveUpGegner;
     }
+
     public boolean isMoveDownGegner() {
         return moveDownGegner;
     }
+
     public void setMoveUpGegner(boolean moveUpGegner) {
         this.moveUpGegner = moveUpGegner;
     }
+
     public void setMoveDownGegner(boolean moveDownGegner) {
         this.moveDownGegner = moveDownGegner;
     }
