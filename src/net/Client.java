@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.Inet4Address;
 import java.net.Socket;
 import java.net.SocketException;
 
@@ -16,7 +15,7 @@ public class Client extends Thread {
 	private PrintWriter out;
 	private Control control;
 
-	public Client(Control control, Inet4Address ipAddress) throws IOException {
+	public Client(Control control, String ipAddress) throws IOException {
 		this.control = control;
 		try {
 			this.connection = new Socket(ipAddress, 8080);

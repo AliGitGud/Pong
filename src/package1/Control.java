@@ -1,5 +1,13 @@
 package package1;
 
+import java.io.IOError;
+import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+
+import net.Client;
+import net.Server;
+
 public class Control {
     private BallMovement ballMovement;
     private BallCollision ballCollision;
@@ -9,6 +17,10 @@ public class Control {
     private Movement movement;
     private KeyHandler keyHandler;
     private StartWindow startWindow;
+
+    private Server server;
+    private Client client;
+
     public Control() {
         keyHandler = new KeyHandler(this);
         ballMovement = new BallMovement();
@@ -61,80 +73,113 @@ public class Control {
         return draw;
     }
 
-    public int getGegnerPosX(){
+    public int getGegnerPosX() {
         return gegnerMovement.getGegnerX();
     }
-    public int getGegnerPosY(){
+
+    public int getGegnerPosY() {
         return gegnerMovement.getGegnerY();
     }
 
-    public int getSpielerPosX(){
+    public int getSpielerPosX() {
         return movement.getSpielerX();
     }
-    public int getSpielerPosY(){
+
+    public int getSpielerPosY() {
         return movement.getSpielerY();
     }
-    public boolean isSpielerMoveUp(){
+
+    public boolean isSpielerMoveUp() {
         return movement.isMoveUpSpieler();
     }
-    public boolean isSpielerMoveDown(){
+
+    public boolean isSpielerMoveDown() {
         return movement.isMoveDownSpieler();
     }
-    public void setMoveUpSpieler( boolean moveUpSpieler){
+
+    public void setMoveUpSpieler(boolean moveUpSpieler) {
         movement.setMoveUpSpieler(moveUpSpieler);
     }
-    public void setMoveDownSpieler( boolean moveDownSpieler){
+
+    public void setMoveDownSpieler(boolean moveDownSpieler) {
         movement.setMoveDownSpieler(moveDownSpieler);
     }
-    public boolean isGegnerMoveUp(){
+
+    public boolean isGegnerMoveUp() {
         return gegnerMovement.isMoveUpGegner();
     }
-    public boolean isGegnerMoveDown(){
+
+    public boolean isGegnerMoveDown() {
         return gegnerMovement.isMoveDownGegner();
     }
-    public void setMoveUpGegner( boolean moveUpGegner){
+
+    public void setMoveUpGegner(boolean moveUpGegner) {
         gegnerMovement.setMoveUpGegner(moveUpGegner);
     }
-    public void setMoveDownGegner( boolean moveDownGegner){
+
+    public void setMoveDownGegner(boolean moveDownGegner) {
         gegnerMovement.setMoveDownGegner(moveDownGegner);
     }
-    public KeyHandler getKeyHandler(){
+
+    public KeyHandler getKeyHandler() {
         return keyHandler;
     }
-    public int getSpielerPunkte(){
+
+    public int getSpielerPunkte() {
         return draw.getSpielerPunkte();
     }
-    public int getGegnerPunkte(){
+
+    public int getGegnerPunkte() {
         return draw.getGegnerPunkte();
     }
-    public void setSpielerPunkte(int spielerPunkte){
+
+    public void setSpielerPunkte(int spielerPunkte) {
         draw.setSpielerPunkte(spielerPunkte);
     }
-    public void setGegnerPunkte(int gegnerPunkte){
+
+    public void setGegnerPunkte(int gegnerPunkte) {
         draw.setGegnerPunkte(gegnerPunkte);
     }
-    public int getWindowWidth(){
+
+    public int getWindowWidth() {
         return gui.getWindowWidth();
     }
-    public int getWindowHeight(){
+
+    public int getWindowHeight() {
         return gui.getWindowHeight();
     }
 
-    public void goToJoinScreen(){
+    public void connect(String ipAddress) throws IOException {
+        this.client = new Client(this, ipAddress);
+    }
+
+    public void host() throws IOException {
+        this.server = new Server(this);
+        this.client = new Client(this, InetAddress.getLocalHost().getHostAddress());
+    }
+
+    public void goToHostScreen() {
+        startWindow.getStartpnl().setVisible(false);
+        startWindow.getHostpnl().setVisible(true);
+        startWindow.getZurueckbtn().setVisible(false);
+    }
+
+    public void goToJoinScreen() {
         startWindow.getStartpnl().setVisible(false);
         startWindow.getJoinpnl().setVisible(true);
         startWindow.getZurueckbtn().setVisible(true);
     }
-    public void goBackToStartScreen(){
+
+    public void goBackToStartScreen() {
         startWindow.getStartpnl().setVisible(true);
         startWindow.getJoinpnl().setVisible(false);
         startWindow.getInfopnl().setVisible(false);
         startWindow.getZurueckbtn().setVisible(false);
     }
-    public void goToInfoScreen(){
+
+    public void goToInfoScreen() {
         startWindow.getStartpnl().setVisible(false);
         startWindow.getInfopnl().setVisible(true);
         startWindow.getZurueckbtn().setVisible(true);
     }
 }
-
