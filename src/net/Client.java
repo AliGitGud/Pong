@@ -57,8 +57,6 @@ public class Client extends Thread {
 						this.control.setMoveDownGegner(false);
 					}
 				}
-			} catch (SocketException e) {
-				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

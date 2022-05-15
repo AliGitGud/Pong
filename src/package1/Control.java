@@ -14,21 +14,24 @@ public class Control {
     private Movement movement;
     private KeyHandler keyHandler;
     private StartWindow startWindow;
-
     private Server server;
     private Client client;
+    private IpAdress ipAdress;
 
     public Control() {
-        keyHandler = new KeyHandler(this);
-        ballMovement = new BallMovement();
-        draw = new Draw(this);
-        gui = new GUI(draw, keyHandler);
-        movement = new Movement(this);
-        gegnerMovement = new GegnerMovement(this);
         startWindow = new StartWindow(this);
-        new BallCollision(this);
+        ipAdress = new IpAdress();
     }
 
+    public void startGame(){
+        keyHandler = new KeyHandler(this);
+        draw = new Draw(this);
+        gui = new GUI(draw, keyHandler);
+        new BallCollision(this);
+        gegnerMovement = new GegnerMovement(this);
+        movement = new Movement(this);
+        ballMovement = new BallMovement();
+    }
     public void setBallDirecX(int direcX) {
         ballMovement.setBallDirecX(direcX);
     }
@@ -168,6 +171,7 @@ public class Control {
         startWindow.getStartpnl().setVisible(false);
         startWindow.getHostpnl().setVisible(true);
         startWindow.getZurueckbtn().setVisible(false);
+        ipAdress.ipAdresseAusgeben();
     }
 
     public void goToJoinScreen() {

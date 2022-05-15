@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.InetAddress;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,7 +26,7 @@ public class StartWindow {
     private JPanel infopnl;
     private JLabel titlelb;
     private JTextField joinTextField;
-    private JTextArea infoTextArea;
+    private JTextArea infoTextArea, hostTextArea;
     private Container con;
     private JButton zurueckbtn;
 
@@ -99,6 +100,18 @@ public class StartWindow {
         con.add(hostpnl);
         hostpnl.setVisible(false);
 
+        hostTextArea = new JTextArea();
+        hostTextArea.setBounds(50, 10, 400, 325);
+        hostTextArea.setLineWrap(true);
+        hostTextArea.setWrapStyleWord(true);
+        hostTextArea.setFont(infoFont);
+        hostTextArea.setText("In der Konsole findest du deine Ip-Adresse. Um diesem Spiel beizutreten," +
+                " muss dein Gegner die Ip-Adresse in die Suchleiste im Join-Fenster eingeben.\n \n" +
+                "Warte auf Spieler...");
+        hostTextArea.setEditable(false);
+        hostpnl.add(hostTextArea);
+
+
         infoTextArea = new JTextArea();
         infoTextArea.setBounds(50, 10, 400, 325);
         infoTextArea.setLineWrap(true);
@@ -126,7 +139,7 @@ public class StartWindow {
         joinTextField.setText("IP-Adresse des Hosts...");
         joinTextField.setBounds(breite / 2 - 450 / 2, 100, 300, 30);
         joinpnl.add(joinTextField);
-
+        
         ueberpruefenbtn = new JButton("Suchen");
         ueberpruefenbtn.setBackground(Color.white);
         ueberpruefenbtn.setBounds(375, 100, 120, 30);
