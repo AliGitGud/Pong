@@ -154,6 +154,7 @@ public class Control {
     public void connect(String ipAddress) throws IOException {
         this.client = new Client(this, ipAddress);
         this.startGame();
+        ballMovement.flipBallDirection();
     }
 
     public void host() throws IOException {

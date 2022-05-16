@@ -18,6 +18,11 @@ public class BallMovement {
         }, 0, 4);
     }
 
+    public void flipBallDirection() {
+        ballx *= -1;
+        bally *= -1;
+    }
+
     public int getBallx() {
         return ballx;
     }
