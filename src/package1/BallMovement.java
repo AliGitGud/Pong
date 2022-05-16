@@ -19,8 +19,8 @@ public class BallMovement {
     }
 
     public void flipBallDirection() {
-        ballx *= -1;
-        bally *= -1;
+        ballDirecX *= -1;
+        ballDirecY *= -1;
     }
 
     public int getBallx() {
