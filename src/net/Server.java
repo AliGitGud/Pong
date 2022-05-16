@@ -42,7 +42,6 @@ public class Server {
 						if (connections.size() >= 2) {
 							connected = true;
 							control.startGame();
-							// TODO hier das Spiel starten
 						}
 						socket = null;
 					}

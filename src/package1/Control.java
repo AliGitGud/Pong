@@ -19,19 +19,21 @@ public class Control {
     private IpAdress ipAdress;
 
     public Control() {
+        movement = new Movement(this);
+        gegnerMovement = new GegnerMovement(this);
         startWindow = new StartWindow(this);
         ipAdress = new IpAdress();
     }
 
-    public void startGame(){
+    public void startGame() {
         keyHandler = new KeyHandler(this);
         draw = new Draw(this);
         gui = new GUI(draw, keyHandler);
-        new BallCollision(this);
-        gegnerMovement = new GegnerMovement(this);
-        movement = new Movement(this);
         ballMovement = new BallMovement();
+        new BallCollision(this);
+        this.startWindow.hide();
     }
+
     public void setBallDirecX(int direcX) {
         ballMovement.setBallDirecX(direcX);
     }
@@ -151,7 +153,7 @@ public class Control {
 
     public void connect(String ipAddress) throws IOException {
         this.client = new Client(this, ipAddress);
-        // Hier das Spiel starten
+        this.startGame();
     }
 
     public void host() throws IOException {

@@ -56,6 +56,10 @@ public class StartWindow {
         return infopnl;
     }
 
+    public void hide() {
+        this.startWindow.setVisible(false);
+    }
+
     Font titleFont = new Font("Algerian", Font.PLAIN, 60);
     Font buttonFont = new Font("Algerian", Font.PLAIN, 20);
     Font infoFont = new Font("", Font.PLAIN, 20);
@@ -111,7 +115,6 @@ public class StartWindow {
         hostTextArea.setEditable(false);
         hostpnl.add(hostTextArea);
 
-
         infoTextArea = new JTextArea();
         infoTextArea.setBounds(50, 10, 400, 325);
         infoTextArea.setLineWrap(true);
@@ -139,7 +142,7 @@ public class StartWindow {
         joinTextField.setText("IP-Adresse des Hosts...");
         joinTextField.setBounds(breite / 2 - 450 / 2, 100, 300, 30);
         joinpnl.add(joinTextField);
-        
+
         ueberpruefenbtn = new JButton("Suchen");
         ueberpruefenbtn.setBackground(Color.white);
         ueberpruefenbtn.setBounds(375, 100, 120, 30);
