@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 import package1.Control;
 
@@ -54,10 +55,6 @@ public class Client extends Thread {
 						this.control.setMoveDownGegner(true);
 					} else if (line.equalsIgnoreCase(TcpCommands.DOWN_ENDED)) {
 						this.control.setMoveDownGegner(false);
-					} else if (line.toLowerCase().startsWith(TcpCommands.BALL_MOVED.toLowerCase())) {
-						String coords = line.split("|")[1];
-						this.control.setBallPosX(Integer.parseInt(coords.split(";")[0]));
-						this.control.setBallPosY(Integer.parseInt(coords.split(";")[1]));
 					}
 				}
 			} catch (IOException e) {
