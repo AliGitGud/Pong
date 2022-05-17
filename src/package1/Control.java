@@ -1,10 +1,14 @@
 package package1;
 
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import net.Client;
 import net.Server;
+
+import static java.net.InetAddress.getLocalHost;
 
 public class Control {
     private BallMovement ballMovement;
@@ -166,6 +170,7 @@ public class Control {
     public void host() throws IOException {
         this.server = new Server(this);
         this.client = new Client(this, InetAddress.getLocalHost().getHostAddress());
+        startWindow.setHostAreaText(getIpAdress() + "\n Warte auf Spieler...");
     }
 
     public Client getClient() {
@@ -204,5 +209,10 @@ public class Control {
         startWindow.getStartpnl().setVisible(false);
         startWindow.getInfopnl().setVisible(true);
         startWindow.getZurueckbtn().setVisible(true);
+    }
+
+    public String getIpAdress(){
+        String[] holdIP = server.getIp().split("/");
+        return holdIP[1];
     }
 }

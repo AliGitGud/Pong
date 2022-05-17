@@ -108,9 +108,6 @@ public class StartWindow {
         hostTextArea.setLineWrap(true);
         hostTextArea.setWrapStyleWord(true);
         hostTextArea.setFont(infoFont);
-        hostTextArea.setText("In der Konsole findest du deine Ip-Adresse. Um diesem Spiel beizutreten," +
-                " muss dein Gegner die Ip-Adresse in die Suchleiste im Join-Fenster eingeben.\n \n" +
-                "Warte auf Spieler...");
         hostTextArea.setEditable(false);
         hostpnl.add(hostTextArea);
 
@@ -216,5 +213,8 @@ public class StartWindow {
             }
         });
         startpnl.add(infobtn);
+    }
+    public void setHostAreaText(String string){
+        hostTextArea.setText(string);
     }
 }
