@@ -18,11 +18,14 @@ public class Control {
     private Client client;
     private IpAdress ipAdress;
 
+    private boolean isHost;
+
     public Control() {
         movement = new Movement(this);
         gegnerMovement = new GegnerMovement(this);
         startWindow = new StartWindow(this);
         ipAdress = new IpAdress();
+        this.isHost = false;
     }
 
     public void startGame() {
@@ -30,8 +33,11 @@ public class Control {
         draw = new Draw(this);
         gui = new GUI(draw, keyHandler);
         ballMovement = new BallMovement();
-        new BallCollision(this);
+        if (this.isHost) {
+            new BallCollision(this);
+        }
         this.startWindow.hide();
+
     }
 
     public void setBallDirecX(int direcX) {
@@ -164,6 +170,10 @@ public class Control {
 
     public Client getClient() {
         return this.client;
+    }
+
+    public boolean isHost() {
+        return this.isHost;
     }
 
     public Server getServer() {

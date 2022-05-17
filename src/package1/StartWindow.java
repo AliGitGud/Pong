@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.InetAddress;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -187,7 +186,6 @@ public class StartWindow {
                     ex.printStackTrace();
                 }
                 control.goToHostScreen();
-                // TODO Hostscreen designen
             }
         });
         startpnl.add(hostgamebtn);

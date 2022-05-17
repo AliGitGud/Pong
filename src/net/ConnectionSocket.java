@@ -62,6 +62,8 @@ public class ConnectionSocket extends Thread {
 						this.control.getServer().sendTo(enemy, TcpCommands.DOWN_STARTED);
 					} else if (line.equalsIgnoreCase(TcpCommands.DOWN_ENDED)) {
 						this.control.getServer().sendTo(enemy, TcpCommands.DOWN_ENDED);
+					} else if (line.toLowerCase().startsWith(TcpCommands.BALL_MOVED.toLowerCase())) {
+						this.control.getServer().sendTo(enemy, line);
 					}
 				}
 			} catch (SocketException e) {
@@ -70,6 +72,7 @@ public class ConnectionSocket extends Thread {
 				e.printStackTrace();
 			}
 		}
+
 	}
 
 	public void send(String message) {

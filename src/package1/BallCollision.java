@@ -3,15 +3,13 @@ package package1;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import net.TcpCommands;
+
 public class BallCollision {
 
     Timer kollision;
 
     public BallCollision(Control control) {
-        // TODO Gegenrichtung einbauen
-        // (Bei Spieler 0 startet der Ball nach Links, bei Spieler 1 nach rechts =>
-        // Allgemein muss das Spiel für Spieler 1 gedreht werden oder er muss die rechte
-        // statt der linken Seite steuern)
         kollision = new Timer();
         kollision.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -48,6 +46,7 @@ public class BallCollision {
                         && control.getBallPosY() > control.getGegnerPosY()) {
                     control.setBallDirecX(-1);
                 }
+                control.getClient().send(TcpCommands.BALL_MOVED + control.getBallPosX() + ";" + control.getBallPosY());
             }
         }, 0, 4);
     }
