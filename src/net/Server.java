@@ -1,8 +1,7 @@
 package net;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 import java.util.HashMap;
 
 import package1.Control;
@@ -52,5 +51,13 @@ public class Server {
 
 	public void sendTo(int recipient, String message) {
 		this.connections.get(recipient).send(message);
+	}
+
+	public String getIp(){
+		try {
+			return InetAddress.getLocalHost().toString();
+		} catch (UnknownHostException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
