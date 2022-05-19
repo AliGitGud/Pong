@@ -2,10 +2,11 @@ package package1;
 
 import java.io.IOException;
 import java.net.InetAddress;
-
+import java.net.UnknownHostException;
 import net.Client;
 import net.Server;
 
+import static java.net.InetAddress.getLocalHost;
 public class Control {
     private BallMovement ballMovement;
     private Draw draw;
@@ -16,13 +17,11 @@ public class Control {
     private StartWindow startWindow;
     private Server server;
     private Client client;
-    private IpAdress ipAdress;
 
     public Control() {
         movement = new Movement(this);
         gegnerMovement = new GegnerMovement(this);
         startWindow = new StartWindow(this);
-        ipAdress = new IpAdress();
     }
 
     public void startGame() {
@@ -160,6 +159,7 @@ public class Control {
     public void host() throws IOException {
         this.server = new Server(this);
         this.client = new Client(this, InetAddress.getLocalHost().getHostAddress());
+        startWindow.setHostTextArea("Die IP-Addresse zum beitreten:" + getIpAdress() + "\n \nWarte auf Spieler...");
     }
 
     public Client getClient() {
@@ -174,25 +174,29 @@ public class Control {
         startWindow.getStartpnl().setVisible(false);
         startWindow.getHostpnl().setVisible(true);
         startWindow.getZurueckbtn().setVisible(false);
-        ipAdress.ipAdresseAusgeben();
     }
 
     public void goToJoinScreen() {
+        startWindow.getZurueckbtn().setVisible(true);
         startWindow.getStartpnl().setVisible(false);
         startWindow.getJoinpnl().setVisible(true);
-        startWindow.getZurueckbtn().setVisible(true);
     }
 
     public void goBackToStartScreen() {
+        startWindow.getZurueckbtn().setVisible(false);
         startWindow.getStartpnl().setVisible(true);
         startWindow.getJoinpnl().setVisible(false);
         startWindow.getInfopnl().setVisible(false);
-        startWindow.getZurueckbtn().setVisible(false);
     }
 
     public void goToInfoScreen() {
+        startWindow.getZurueckbtn().setVisible(true);
         startWindow.getStartpnl().setVisible(false);
         startWindow.getInfopnl().setVisible(true);
-        startWindow.getZurueckbtn().setVisible(true);
+    }
+
+    public String getIpAdress(){
+        String[] holdIP = server.getIp().split("/");
+        return holdIP[1];
     }
 }

@@ -8,10 +8,6 @@ public class BallCollision {
     Timer kollision;
 
     public BallCollision(Control control) {
-        // TODO Gegenrichtung einbauen
-        // (Bei Spieler 0 startet der Ball nach Links, bei Spieler 1 nach rechts =>
-        // Allgemein muss das Spiel für Spieler 1 gedreht werden oder er muss die rechte
-        // statt der linken Seite steuern)
         kollision = new Timer();
         kollision.scheduleAtFixedRate(new TimerTask() {
             @Override

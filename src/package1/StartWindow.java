@@ -8,14 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.InetAddress;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 
 public class StartWindow {
     private JFrame startWindow;
@@ -60,8 +53,8 @@ public class StartWindow {
         this.startWindow.setVisible(false);
     }
 
-    Font titleFont = new Font("Algerian", Font.PLAIN, 60);
-    Font buttonFont = new Font("Algerian", Font.PLAIN, 20);
+    Font titleFont = new Font("", Font.PLAIN, 60);
+    Font buttonFont = new Font("", Font.PLAIN, 20);
     Font infoFont = new Font("", Font.PLAIN, 20);
 
     public StartWindow(Control control) {
@@ -69,7 +62,6 @@ public class StartWindow {
 
         startWindow = new JFrame();
         startWindow.setSize(breite, hoehe);
-        startWindow.setVisible(true);
         startWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         startWindow.setLocationRelativeTo(null);
         startWindow.setTitle("Pong");
@@ -87,7 +79,7 @@ public class StartWindow {
         startpnl.setForeground(Color.white);
         titlelb.setFont(titleFont);
         startpnl.add(titlelb);
-        titlelb.setBounds(breite / 2 - 100, 50, 200, 50);
+        titlelb.setBounds(breite / 2 - 100, 10, 200, 80);
         titlelb.setHorizontalAlignment(SwingConstants.CENTER);
         titlelb.setVerticalAlignment(SwingConstants.CENTER);
 
@@ -109,9 +101,6 @@ public class StartWindow {
         hostTextArea.setLineWrap(true);
         hostTextArea.setWrapStyleWord(true);
         hostTextArea.setFont(infoFont);
-        hostTextArea.setText("In der Konsole findest du deine Ip-Adresse. Um diesem Spiel beizutreten," +
-                " muss dein Gegner die Ip-Adresse in die Suchleiste im Join-Fenster eingeben.\n \n" +
-                "Warte auf Spieler...");
         hostTextArea.setEditable(false);
         hostpnl.add(hostTextArea);
 
@@ -218,5 +207,9 @@ public class StartWindow {
             }
         });
         startpnl.add(infobtn);
+        startWindow.setVisible(true);
+    }
+    public void setHostTextArea(String string){
+        hostTextArea.setText(string);
     }
 }
